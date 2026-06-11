@@ -1,0 +1,669 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/*
+ * Press Start 2P 像素字体：本地加载，因 Google Fonts 被墙无法用 next/font/google。
+ * 字体文件在 public/fonts/PressStart2P-Regular.woff2（来源：@fontsource/press-start-2p npm 包）。
+ * 使用方式：在需要像素风的 UI 元素上加 .pixel-font class，用户生成内容不要加。
+ */
+@font-face {
+  font-family: "Press Start 2P";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url("/fonts/PressStart2P-Regular.woff2") format("woff2");
+}
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-pixel: "Press Start 2P";
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  /* Pixel art color palette - inspired by NES/SNES */
+  --color-earth-green: #38B764;
+  --color-earth-green-dark: #257953;
+  --color-earth-green-light: #63C74D;
+  --color-earth-gold: #F7B955;
+  --color-earth-gold-dark: #C68B2E;
+  --color-earth-brown: #5A3921;
+  --color-earth-brown-light: #8B6914;
+  --color-earth-red: #E43B44;
+  --color-earth-red-dark: #8B1A1A;
+  --color-earth-cream: #FFF1E8;
+  --color-earth-cream-dark: #F5D6B8;
+  --color-earth-sky: #29ADFF;
+  --color-earth-sky-light: #61D4FF;
+  --color-earth-sky-dark: #1D6EB5;
+  --color-earth-text: #1D2B53;
+  --color-earth-text-light: #5F574F;
+  --color-earth-border: #5A3921;
+  --color-earth-card: #E8D5B7;
+  --color-earth-card-dark: #D4B896;
+  --color-earth-white: #FFF1E8;
+  --color-earth-cloud: #FFFFFF;
+  --color-earth-sun: #FFCD75;
+  --color-earth-grass-top: #63C74D;
+  --color-earth-grass: #38B764;
+  --color-earth-grass-dark: #257953;
+  --color-earth-dirt: #8B6914;
+  --color-earth-dirt-dark: #5A3921;
+  /* 3D embossed border colors - Stardew Valley style */
+  --color-earth-border-light: #D4A76A;
+  --color-earth-border-dark: #6B4423;
+  --color-earth-border-base: #8B6914;
+  --color-earth-border-deeper: #4A2F1A;
+  --color-earth-border-shadow: #3A2410;
+  --color-earth-border-inner-light: #F5E6C8;
+  --color-earth-border-inner-dark: #DABB96;
+}
+
+:root {
+  --radius: 0.375rem;
+  --background: #F5EDDA;
+  --foreground: #1D2B53;
+  --card: #F9F3E6;
+  --card-foreground: #1D2B53;
+  --popover: #F9F3E6;
+  --popover-foreground: #1D2B53;
+  --primary: #38B764;
+  --primary-foreground: #E8D5B7;
+  --secondary: #F7B955;
+  --secondary-foreground: #1D2B53;
+  --muted: #F5D6B8;
+  --muted-foreground: #5F574F;
+  --accent: #29ADFF;
+  --accent-foreground: #1D2B53;
+  --destructive: #E43B44;
+  --border: #A0784C;
+  --input: #F5D6B8;
+  --ring: #38B764;
+  --chart-1: #38B764;
+  --chart-2: #F7B955;
+  --chart-3: #29ADFF;
+  --chart-4: #E43B44;
+  --chart-5: #8B6914;
+  --sidebar: #F9F3E6;
+  --sidebar-foreground: #1D2B53;
+  --sidebar-primary: #38B764;
+  --sidebar-primary-foreground: #E8D5B7;
+  --sidebar-accent: #F7B955;
+  --sidebar-accent-foreground: #1D2B53;
+  --sidebar-border: #A0784C;
+  --sidebar-ring: #38B764;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Microsoft YaHei", "PingFang SC", "Heiti SC", "Noto Sans SC", sans-serif;
+    image-rendering: pixelated;
+  }
+}
+
+/* ===== Pixel font utility ===== */
+.pixel-font {
+  font-family: "Press Start 2P", monospace;
+  letter-spacing: -1px;
+}
+
+/* ===== Chinese text font ===== */
+.cn-font {
+  font-family: "Microsoft YaHei", "PingFang SC", "Heiti SC", "Noto Sans SC", "Hiragino Sans GB", sans-serif;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+/* ===== BACKGROUND ===== */
+.pixel-bg {
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  background: transparent;
+}
+
+/* Sky background via fixed pseudo-element (iOS Safari compatible) */
+.pixel-bg::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: url('/sky.jpg') center bottom / cover no-repeat;
+  pointer-events: none;
+}
+
+/* ===== PIXEL SUN ===== */
+.pixel-sun {
+  position: fixed;
+  top: 20px;
+  right: 40px;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.pixel-sun-body {
+  width: 40px;
+  height: 40px;
+  background: #FFCD75;
+  border: 3px solid #E8A838;
+  box-shadow:
+    /* Rays - right */
+    56px 0 0 0 #FFCD75,
+    76px 0 0 0 #FFCD75,
+    /* Rays - up */
+    0 -56px 0 0 #FFCD75,
+    0 -76px 0 0 #FFCD75,
+    /* Rays - left */
+    -56px 0 0 0 #FFCD75,
+    -76px 0 0 0 #FFCD75,
+    /* Rays - down */
+    0 56px 0 0 #FFCD75,
+    0 76px 0 0 #FFCD75,
+    /* Rays - diagonal */
+    40px -40px 0 0 #FFCD75,
+    -40px -40px 0 0 #FFCD75,
+    40px 40px 0 0 #FFCD75,
+    -40px 40px 0 0 #FFCD75;
+  animation: sunPulse 3s ease-in-out infinite;
+}
+
+@keyframes sunPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.85; }
+}
+
+/* ===== PIXEL CLOUDS (box-shadow pixel art) ===== */
+
+/* Cloud A - 最大 */
+.pixel-cloud-a {
+  width: 80px;
+  height: 20px;
+  top: 10%;
+  left: -100px;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 2px;
+  image-rendering: pixelated;
+  position: fixed;
+  pointer-events: none;
+  z-index: 0;
+  box-shadow:
+    10px -10px 0 0 rgba(255,255,255,0.85),
+    20px -10px 0 0 rgba(255,255,255,0.85),
+    30px -10px 0 0 rgba(255,255,255,0.85),
+    40px -10px 0 0 rgba(255,255,255,0.85),
+    50px -10px 0 0 rgba(255,255,255,0.85),
+    60px -10px 0 0 rgba(255,255,255,0.85),
+    20px -20px 0 0 rgba(255,255,255,0.85),
+    30px -20px 0 0 rgba(255,255,255,0.85),
+    40px -20px 0 0 rgba(255,255,255,0.85),
+    50px -20px 0 0 rgba(255,255,255,0.85);
+  animation: cloudFloat 50s linear infinite;
+}
+
+/* Cloud B - 大 */
+.pixel-cloud-b {
+  width: 64px;
+  height: 16px;
+  top: 6%;
+  left: -80px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 2px;
+  image-rendering: pixelated;
+  position: fixed;
+  pointer-events: none;
+  z-index: 0;
+  box-shadow:
+    8px -8px 0 0 rgba(255,255,255,0.8),
+    16px -8px 0 0 rgba(255,255,255,0.8),
+    24px -8px 0 0 rgba(255,255,255,0.8),
+    32px -8px 0 0 rgba(255,255,255,0.8),
+    40px -8px 0 0 rgba(255,255,255,0.8),
+    16px -16px 0 0 rgba(255,255,255,0.8),
+    24px -16px 0 0 rgba(255,255,255,0.8),
+    32px -16px 0 0 rgba(255,255,255,0.8);
+  animation: cloudFloat 65s linear infinite;
+  animation-delay: -20s;
+}
+
+/* Cloud C - 中 */
+.pixel-cloud-c {
+  width: 56px;
+  height: 14px;
+  top: 16%;
+  left: -70px;
+  background: rgba(255, 255, 255, 0.75);
+  border-radius: 2px;
+  image-rendering: pixelated;
+  position: fixed;
+  pointer-events: none;
+  z-index: 0;
+  box-shadow:
+    7px -7px 0 0 rgba(255,255,255,0.75),
+    14px -7px 0 0 rgba(255,255,255,0.75),
+    21px -7px 0 0 rgba(255,255,255,0.75),
+    28px -7px 0 0 rgba(255,255,255,0.75),
+    35px -7px 0 0 rgba(255,255,255,0.75),
+    14px -14px 0 0 rgba(255,255,255,0.75),
+    21px -14px 0 0 rgba(255,255,255,0.75),
+    28px -14px 0 0 rgba(255,255,255,0.75);
+  animation: cloudFloat 45s linear infinite;
+  animation-delay: -35s;
+}
+
+/* Cloud D - 小 */
+.pixel-cloud-d {
+  width: 48px;
+  height: 12px;
+  top: 22%;
+  left: -60px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 2px;
+  image-rendering: pixelated;
+  position: fixed;
+  pointer-events: none;
+  z-index: 0;
+  box-shadow:
+    6px -6px 0 0 rgba(255,255,255,0.7),
+    12px -6px 0 0 rgba(255,255,255,0.7),
+    18px -6px 0 0 rgba(255,255,255,0.7),
+    24px -6px 0 0 rgba(255,255,255,0.7),
+    30px -6px 0 0 rgba(255,255,255,0.7),
+    36px -6px 0 0 rgba(255,255,255,0.7),
+    12px -12px 0 0 rgba(255,255,255,0.7),
+    18px -12px 0 0 rgba(255,255,255,0.7),
+    24px -12px 0 0 rgba(255,255,255,0.7);
+  animation: cloudFloat 58s linear infinite;
+  animation-delay: -12s;
+}
+
+@keyframes cloudFloat {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(100vw + 160px)); }
+}
+
+/* ===== PIXEL CITYSCAPE (image background) ===== */
+.pixel-cityscape {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 480px;
+  z-index: 1;
+  pointer-events: none;
+  image-rendering: pixelated;
+  background: url('/cityscape.png') repeat-x bottom / auto 100%;
+}
+
+/* ===== PIXEL CARD - 像素风木质纹理RPG对话框 (border-image 9-slice) ===== */
+.pixel-card {
+  background-color: #F9F3E6;
+  background-clip: padding-box;
+  border-style: solid;
+  border-width: 12px;
+  border-image: url(/pixel-border.png) 6 repeat;
+  filter: drop-shadow(3px 3px 0px #3A2410);
+  position: relative;
+  image-rendering: pixelated;
+}
+
+/* Pixel border style - 3D embossed */
+.pixel-border {
+  border-style: solid;
+  border-width: 4px;
+  border-top-color: #D4A76A;
+  border-left-color: #D4A76A;
+  border-bottom-color: #6B4423;
+  border-right-color: #6B4423;
+  border-radius: 3px;
+  box-shadow: 2px 2px 0 0 #3A2410;
+}
+
+.pixel-border-thin {
+  border-style: solid;
+  border-width: 2px;
+  border-top-color: #D4A76A;
+  border-left-color: #D4A76A;
+  border-bottom-color: #6B4423;
+  border-right-color: #6B4423;
+  border-radius: 2px;
+}
+
+/* ===== PIXEL BUTTON - 3D Embossed RPG Style ===== */
+.pixel-btn {
+  font-family: "Press Start 2P", monospace;
+  border-style: solid;
+  border-width: 3px;
+  border-top-color: #D4A76A;
+  border-left-color: #D4A76A;
+  border-bottom-color: #6B4423;
+  border-right-color: #6B4423;
+  border-radius: 3px;
+  box-shadow: 2px 2px 0 0 #3A2410;
+  transition: none;
+  position: relative;
+  image-rendering: pixelated;
+  letter-spacing: -1px;
+}
+
+.pixel-btn:hover {
+  filter: brightness(1.1);
+}
+
+.pixel-btn:active {
+  border-top-color: #6B4423;
+  border-left-color: #6B4423;
+  border-bottom-color: #D4A76A;
+  border-right-color: #D4A76A;
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0 0 #3A2410;
+}
+
+/* ===== XP BAR - Pixel style ===== */
+.xp-bar-track {
+  background: #1D2B53;
+  border-style: solid;
+  border-width: 2px;
+  border-top-color: #D4A76A;
+  border-left-color: #D4A76A;
+  border-bottom-color: #6B4423;
+  border-right-color: #6B4423;
+  border-radius: 2px;
+  height: 16px;
+  overflow: hidden;
+  position: relative;
+}
+
+.xp-bar-fill {
+  background: #38B764;
+  height: 100%;
+  transition: width 0.5s steps(10);
+  position: relative;
+}
+
+.xp-bar-fill::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: #63C74D;
+}
+
+.xp-bar-fill::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #257953;
+}
+
+/* ===== PIXEL CHECKBOX ===== */
+.pixel-checkbox {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-style: solid;
+  border-width: 2px;
+  border-top-color: #D4A76A;
+  border-left-color: #D4A76A;
+  border-bottom-color: #6B4423;
+  border-right-color: #6B4423;
+  background: #F9F3E6;
+  border-radius: 2px;
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.pixel-checkbox:checked {
+  background: #38B764;
+}
+
+.pixel-checkbox:checked::after {
+  content: "✓";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #FFF1E8;
+  font-size: 12px;
+  font-weight: bold;
+  font-family: monospace;
+}
+
+/* ===== PIXEL INPUT ===== */
+.pixel-input {
+  border-style: solid;
+  border-width: 3px;
+  border-top-color: #6B4423;
+  border-left-color: #6B4423;
+  border-bottom-color: #D4A76A;
+  border-right-color: #D4A76A;
+  border-radius: 3px;
+  background: #F9F3E6;
+  color: #1D2B53;
+  image-rendering: pixelated;
+}
+
+.pixel-input:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.pixel-input::placeholder {
+  color: #5F574F;
+  opacity: 0.6;
+}
+
+/* ===== PIXEL AVATAR ===== */
+.pixel-avatar {
+  image-rendering: pixelated;
+  border-style: solid;
+  border-width: 3px;
+  border-top-color: #D4A76A;
+  border-left-color: #D4A76A;
+  border-bottom-color: #6B4423;
+  border-right-color: #6B4423;
+  border-radius: 3px;
+  box-shadow: 2px 2px 0 0 #3A2410;
+}
+
+/* ===== SCROLLBAR - Pixel style ===== */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #F5D6B8;
+  border-left: 2px solid #A0784C;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #8B6914;
+  border: 2px solid #A0784C;
+  border-radius: 0;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #5A3921;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes coinBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.coin-bounce {
+  animation: coinBounce 0.5s ease;
+}
+
+@keyframes taskComplete {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.03); background-color: #DDD5C4; }
+  100% { transform: scale(1); }
+}
+
+.task-complete-anim {
+  animation: taskComplete 0.3s ease;
+}
+
+@keyframes levelUp {
+  0% { transform: scale(0.5); opacity: 0; }
+  50% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.level-up-anim {
+  animation: levelUp 0.6s steps(6);
+}
+
+@keyframes sparkle {
+  0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1) rotate(180deg); }
+}
+
+.sparkle {
+  animation: sparkle 0.8s steps(4);
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.slide-in-up {
+  animation: slideInUp 0.3s steps(5);
+}
+
+/* ===== PIXEL PIXELATED TEXT GLOW (for 地球) ===== */
+.pixel-title {
+  font-family: "Press Start 2P", monospace;
+  color: #FFF1E8;
+  text-shadow:
+    3px 3px 0 #5A3921,
+    -1px -1px 0 #5A3921,
+    1px -1px 0 #5A3921,
+    -1px 1px 0 #5A3921,
+    2px 2px 0 #8B6914;
+  image-rendering: pixelated;
+  letter-spacing: -1px;
+}
+
+/* ===== PIXEL TAG ===== */
+.pixel-tag {
+  border-style: solid;
+  border-width: 2px;
+  border-top-color: #D4A76A;
+  border-left-color: #D4A76A;
+  border-bottom-color: #6B4423;
+  border-right-color: #6B4423;
+  border-radius: 2px;
+  background: #F7B955;
+  color: #1D2B53;
+  font-family: "Press Start 2P", monospace;
+  font-size: 7px;
+  padding: 1px 4px;
+  image-rendering: pixelated;
+  letter-spacing: -1px;
+}
+
+/* ===== PIXEL TOAST ===== */
+.pixel-toast {
+  border-style: solid;
+  border-width: 3px;
+  border-top-color: #D4A76A;
+  border-left-color: #D4A76A;
+  border-bottom-color: #6B4423;
+  border-right-color: #6B4423;
+  border-radius: 3px;
+  box-shadow: 2px 2px 0 0 #3A2410;
+}
+
+/* ===== PIXEL DECORATIVE STARS ===== */
+@keyframes twinkle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.pixel-star {
+  animation: twinkle 2s steps(2) infinite;
+}
+
+/* ===== TASK ITEM PIXEL STYLE ===== */
+.task-item {
+  border-style: solid;
+  border-width: 2px;
+  border-top-color: #D4A76A;
+  border-left-color: #D4A76A;
+  border-bottom-color: #6B4423;
+  border-right-color: #6B4423;
+  border-radius: 2px;
+  background: #F9F3E6;
+  transition: none;
+}
+
+.task-item.completed {
+  background: rgba(56, 183, 100, 0.15);
+}
+
+/* ===== RESPONSIVE PIXEL FONT SIZING ===== */
+@media (max-width: 640px) {
+  .pixel-title {
+    text-shadow:
+      2px 2px 0 #5A3921,
+      -1px -1px 0 #5A3921,
+      1px -1px 0 #5A3921,
+      -1px 1px 0 #5A3921;
+  }
+}
