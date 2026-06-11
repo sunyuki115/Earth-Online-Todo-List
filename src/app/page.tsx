@@ -70,7 +70,7 @@ function GameApp() {
   const [gachaSpinCount, setGachaSpinCount] = useState(0)
 
   const clearAchievementToast = useCallback(() => setAchievementToast(null), [])
-  const isGuest = !session?.user?.id
+  const isGuest = true
 
   const fetchServerUser = useCallback(async () => {
     try {
@@ -108,15 +108,9 @@ function GameApp() {
   }, [])
 
   useEffect(() => {
-    if (status === "loading") return
-    if (session?.user?.id) {
-      fetchServerUser()
-      fetchServerTasks()
-    } else {
-      loadGuestData()
-    }
+    loadGuestData()
     setHydrated(true)
-  }, [session, status, fetchServerUser, fetchServerTasks, loadGuestData])
+  }, [loadGuestData])
 
   // Load gacha collection/coupons/achievements from localStorage
   useEffect(() => {
