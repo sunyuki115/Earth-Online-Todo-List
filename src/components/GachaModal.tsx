@@ -56,7 +56,7 @@ export function GachaModal({
               <img
                 src="/gacha-machine.png"
                 alt="扭蛋机"
-                className="w-48 h-auto mx-auto mb-4 mix-blend-multiply"
+                className="w-32 h-auto mx-auto mb-4 mix-blend-multiply"
                 draggable={false}
               />
 

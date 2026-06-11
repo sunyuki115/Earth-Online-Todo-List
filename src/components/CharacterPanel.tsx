@@ -11,8 +11,6 @@ export function CharacterPanel({
   user,
   open,
   onClose,
-  onLogout,
-  onLoginClick,
   achievements,
   onOpenAchievements,
   onViewAchievementDetail,
@@ -20,14 +18,12 @@ export function CharacterPanel({
   user: UserInfo
   open: boolean
   onClose: () => void
-  onLogout: () => void
-  onLoginClick: () => void
   achievements: UnlockedAchievement[]
   onOpenAchievements: () => void
   onViewAchievementDetail: (id: string) => void
 }) {
   const xpPercent = Math.floor((user.xp / user.xpToNextLevel) * 100)
-  const displaySurvivalDays = user.isGuest ? 0 : user.survivalDays
+  const displayAdventureDays = user.survivalDays
 
   return (
     <AnimatePresence>
@@ -58,17 +54,6 @@ export function CharacterPanel({
                 ✕ 关闭
               </button>
 
-              {/* Guest Notice */}
-              {user.isGuest && (
-                <div className="pixel-border-thin p-3 bg-earth-gold/15 mb-4">
-                  <p className="pixel-font text-[10px] text-earth-brown mb-2">
-                    👻 你当前是游客模式
-                  </p>
-                  <p className="text-[9px] text-earth-text-light leading-relaxed">
-                    游客数据仅保存在本浏览器，清除缓存或换设备会丢失！点击下方按钮注册账号，数据将永久保存。
-                  </p>
-                </div>
-              )}
 
               {/* Character Card */}
               <div className="pixel-card p-5 mb-4">
@@ -116,8 +101,8 @@ export function CharacterPanel({
                   </div>
                   <div className="pixel-border-thin p-3 bg-earth-cream text-center">
                     <div className="text-lg mb-1">📅</div>
-                    <div className="pixel-font text-[10px] text-earth-text-light">生存天数</div>
-                    <div className="pixel-font text-sm text-earth-brown mt-1">{displaySurvivalDays.toLocaleString()}</div>
+                    <div className="pixel-font text-[10px] text-earth-text-light">冒险天数</div>
+                    <div className="pixel-font text-sm text-earth-brown mt-1">{displayAdventureDays.toLocaleString()}</div>
                   </div>
                   <div className="pixel-border-thin p-3 bg-earth-cream text-center">
                     <div className="text-lg mb-1">✅</div>
@@ -167,22 +152,10 @@ export function CharacterPanel({
                 </button>
               </div>
 
-              {/* Logout */}
-              {user.isGuest ? (
-                <button
-                  onClick={(e) => { e.stopPropagation(); onClose(); setTimeout(onLoginClick, 400) }}
-                  className="w-full py-3 pixel-btn bg-[#C89B4E] text-white pixel-font text-xs"
-                >
-                  🎮 注册/登录保存数据
-                </button>
-              ) : (
-                <button
-                  onClick={onLogout}
-                  className="w-full py-3 pixel-btn bg-earth-red text-white pixel-font text-xs"
-                >
-                  🚪 退出游戏
-                </button>
-              )}
+              {/* Bottom Text */}
+              <p className="text-[12px] cn-font text-earth-text-light leading-relaxed text-center italic">
+                -- 祝你度过愉快的一天 --
+              </p>
             </div>
           </motion.div>
         </>

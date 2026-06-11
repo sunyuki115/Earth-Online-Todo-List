@@ -818,11 +818,6 @@ function GameApp() {
                     <div className="pixel-avatar w-9 h-9 sm:w-11 sm:h-11 bg-earth-gold/20 flex items-center justify-center text-xl sm:text-2xl">
                       👤
                     </div>
-                    {user.isGuest && (
-                      <div className="absolute -top-1 -right-1 pixel-tag">
-                        游客
-                      </div>
-                    )}
                   </div>
                 </button>
               </div>
@@ -831,14 +826,7 @@ function GameApp() {
             {/* Welcome text */}
             <div className="text-center mb-3">
               <p className="text-sm sm:text-base text-earth-text leading-relaxed cn-font">
-                {user.isGuest
-                  ? <>🌍 欢迎来到 <span className="pixel-font">Earth Online</span> ！</>
-                  : <>🌍 欢迎来到 <span className="pixel-font">Earth Online</span> ！今天是你来到这里的第{" "}
-                      <span className="text-earth-green text-base sm:text-lg">
-                        {user.survivalDays.toLocaleString()}
-                      </span>{" "}天
-                    </>
-                }
+                🌍 欢迎来到 <span className="pixel-font">Earth Online</span>！
               </p>
             </div>
 
@@ -953,8 +941,6 @@ function GameApp() {
           user={user}
           open={showCharacter}
           onClose={() => setShowCharacter(false)}
-          onLogout={handleLogout}
-          onLoginClick={() => setShowAuthModal(true)}
           achievements={achievements}
           onOpenAchievements={() => { setShowCharacter(false); setShowAchievements(true) }}
           onViewAchievementDetail={(id) => { setAchievementDetailId(id); setShowAchievementDetail(true) }}
