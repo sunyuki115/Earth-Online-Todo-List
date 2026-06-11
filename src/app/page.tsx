@@ -1,6 +1,5 @@
 "use client"
 
-import { useSession, signOut } from "next-auth/react"
 import { useState, useEffect, useCallback } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { REWARDS, getFocusReward } from "@/lib/rewards"
@@ -23,7 +22,6 @@ import {
   generateId, loadGuestUser, saveGuestUser,
   loadGuestTasks, saveGuestTasks, processGuestReward,
 } from "@/lib/guest-storage"
-import { AuthModal } from "@/components/AuthModal"
 import { CharacterPanel } from "@/components/CharacterPanel"
 import { TaskSection } from "@/components/TaskSection"
 import { DailyTaskItem } from "@/components/DailyTaskItem"
@@ -40,11 +38,11 @@ import { AchievementDetailModal } from "@/components/AchievementDetailModal"
 
 // ==================== MAIN APP ====================
 function GameApp() {
-  const { data: session, status } = useSession()
+  const session = null
+  const status = "unauthenticated"
   const [user, setUser] = useState<UserInfo | null>(null)
   const [tasks, setTasks] = useState<TaskType[]>([])
   const [showCharacter, setShowCharacter] = useState(false)
-  const [showAuthModal, setShowAuthModal] = useState(false)
   const [showCreateModal, setShowCreateModal] = useState(false)
   const [showLevelUp, setShowLevelUp] = useState(false)
   const [newLevel, setNewLevel] = useState(0)
@@ -738,14 +736,7 @@ function GameApp() {
 
   const handleLogout = async () => {
     setShowCharacter(false)
-    await signOut({ redirect: false })
     loadGuestData()
-  }
-
-  const handleAuthSuccess = () => {
-    setShowAuthModal(false)
-    fetchServerUser()
-    fetchServerTasks()
   }
 
   if (status === "loading" || !hydrated) {
@@ -951,12 +942,6 @@ function GameApp() {
         open={showCreateModal}
         onClose={() => setShowCreateModal(false)}
         onAdd={handleAddTask}
-      />
-
-      <AuthModal
-        open={showAuthModal}
-        onClose={() => setShowAuthModal(false)}
-        onSuccess={handleAuthSuccess}
       />
 
       <LevelUpModal
