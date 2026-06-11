@@ -54,7 +54,7 @@ export function GachaModal({
 
               {/* TODO: 替换为透明背景 PNG 图片 */}
               <img
-                src="/gacha-machine.png"
+                src="/Earth-Online-Todo-List/gacha-machine.png"
                 alt="扭蛋机"
                 className="w-32 h-auto mx-auto mb-4 mix-blend-multiply"
                 draggable={false}

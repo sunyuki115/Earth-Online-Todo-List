@@ -11,7 +11,7 @@
   font-style: normal;
   font-display: swap;
   font-weight: 400;
-  src: url("/fonts/PressStart2P-Regular.woff2") format("woff2");
+  src: url("/Earth-Online-Todo-List/fonts/PressStart2P-Regular.woff2") format("woff2");
 }
 
 @custom-variant dark (&:is(.dark *));
@@ -169,7 +169,7 @@
   width: 100%;
   height: 100%;
   z-index: -1;
-  background: url('/sky.jpg') center bottom / cover no-repeat;
+  background: url('/Earth-Online-Todo-List/sky.jpg') center bottom / cover no-repeat;
   pointer-events: none;
 }
 
@@ -328,11 +328,11 @@
   bottom: 0;
   left: 0;
   right: 0;
-  height: 480px;
+  height: 184px;
   z-index: 1;
   pointer-events: none;
   image-rendering: pixelated;
-  background: url('/cityscape.png') repeat-x bottom / auto 100%;
+  background: url('/Earth-Online-Todo-List/cityscape.png') repeat-x bottom / auto 184px;
 }
 
 /* ===== PIXEL CARD - 像素风木质纹理RPG对话框 (border-image 9-slice) ===== */
@@ -341,7 +341,7 @@
   background-clip: padding-box;
   border-style: solid;
   border-width: 12px;
-  border-image: url(/pixel-border.png) 6 repeat;
+  border-image: url(/Earth-Online-Todo-List/pixel-border.png) 6 repeat;
   filter: drop-shadow(3px 3px 0px #3A2410);
   position: relative;
   image-rendering: pixelated;
