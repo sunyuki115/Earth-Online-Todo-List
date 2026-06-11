@@ -1,6 +1,14 @@
 import type { NextConfig } from "next";
 
+const repoName = "Earth-Online-Todo-List";
+
 const nextConfig: NextConfig = {
+  output: "export",
+  basePath: `/${repoName}`,
+  assetPrefix: `/${repoName}/`,
+  images: {
+    unoptimized: true,
+  },
   typescript: {
     ignoreBuildErrors: true,
   },
