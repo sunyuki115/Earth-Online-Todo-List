@@ -36,7 +36,7 @@ export function TaskMenu({
         <AnimatePresence>
           {open && (
             <motion.div
-              className="fixed inset-0 z-50 flex items-end sm:items-center justify-center"
+              className="fixed inset-0 z-50 flex items-center justify-center p-4"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -44,10 +44,10 @@ export function TaskMenu({
             >
               <div className="absolute inset-0 bg-black/30" onClick={() => setOpen(false)} />
               <motion.div
-                className="relative pixel-card p-0 w-[200px] mb-8 sm:mb-0"
-                initial={{ y: 30, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={{ y: 30, opacity: 0 }}
+                className="relative pixel-card p-0 w-full max-w-[200px]"
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.9, opacity: 0 }}
                 transition={{ duration: 0.15 }}
               >
                 <div className="px-4 py-3 text-center">
